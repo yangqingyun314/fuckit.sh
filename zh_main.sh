@@ -187,6 +187,16 @@ _fuck_madealias() {
     fi
     echo -e "${C_GREEN}别名添加成功，请重新打开终端以生效。${C_RESET}"
 }
+_fuck_help() {
+    echo -e "\n${C_BOLD}--- 使用方法 ---${C_RESET}"
+    echo -e "使用 ${C_RED_BOLD}fuck${C_RESET} 命令后跟您想执行的操作即可。"
+    echo -e "使用fuck madealias命令可以生成自定义别名，自定义别名后可以使用您的自定义命令来调用fuckit.sh。"
+    echo -e "示例:"
+    echo -e "  ${C_CYAN}fuck install git${C_RESET}"
+    echo -e "  ${C_CYAN}fuck uninstall git${C_RESET}"
+    echo -e "  ${C_CYAN}fuck 找出当前目录所有大于10MB的文件${C_RESET}"
+    echo -e "  ${C_RED_BOLD}fuck uninstall${C_RESET} ${C_GREEN}# 卸载 fuckit.sh${C_RESET}"
+}
 # 跟 API 通信的主函数
 # 参数就是要执行的命令
 _fuck_execute_prompt() {
@@ -197,6 +207,10 @@ _fuck_execute_prompt() {
     fi
     if [ "$1" = "madealias" ] && [ "$#" -eq 1 ]; then
         _fuck_madealias
+        return 0
+    fi
+    if [ "$1" = "--help" ] && [ "$#" -eq 1 ]; then
+        _fuck_help
         return 0
     fi
     if ! command -v curl &> /dev/null; then
