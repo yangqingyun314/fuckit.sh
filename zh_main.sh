@@ -133,6 +133,12 @@ _fuck_json_escape() {
 
 # 卸载脚本
 _uninstall_script() {
+    echo -e "确认卸载fuckit.sh吗？(y/n)"
+    read -r uninstall
+    if [ "$uninstall" = "n" ]; then
+        echo -e "${C_YELLOW}成功取消卸载。${C_RESET}"
+        return
+    fi
     echo -e "${C_YELLOW}正在卸载 fuckit.sh...${C_RESET}"
 
     # 找配置文件
